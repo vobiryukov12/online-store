@@ -1,7 +1,7 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import { Home } from './pages/Home';
-import { Catalog } from './pages/Catalog';
+import { CatalogPage } from './pages/CatalogPage';
 import { About } from './pages/About';
 import { Contacts } from './pages/Contacts';
 import { NotFound } from './pages/NotFound';
@@ -24,7 +24,7 @@ function App() {
 
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/catalog" element={<Catalog />} />
+              <Route path="/catalog" element={<CatalogPage />} />
               <Route path="/about" element={<About />} />
               <Route path="/contacts" element={<Contacts />} />
               <Route path="/404" element={<NotFound />} />

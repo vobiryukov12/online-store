@@ -9,3 +9,9 @@ export interface IProduct {
   price: number,
   images: [string, string]
 }
+
+
+export interface IСategory {
+  id: number,
+  title: string,
+}

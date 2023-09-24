@@ -188,6 +188,41 @@
   box-shadow: none;
 }
 
+/* Card */
+.col-4 {
+  height: 660px;
+}
+
+.card-body {
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.card-img-wrap {
+  height: 460px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.card-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+}
+
+
 /* Footer */
 .footer {
   padding: 0 25px;
@@ -276,6 +311,11 @@
 }
 
 /* Bootstrap */
+.nav-link:hover {
+  color: #0056b3;
+  cursor: pointer;
+}
+
 .nav-link.active {
   color: #ff0000;
 }

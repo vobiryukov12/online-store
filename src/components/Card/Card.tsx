@@ -11,7 +11,9 @@ export function Card({ id, title, price, image }: ICardProps) {
   return (
     <div className="col-4">
       <div className="card">
-        <img src={image} className="card-img-top img-fluid" alt={title} />
+        <div className="card-img-wrap">
+          <img src={image} className="card-img-top" alt={title} />
+        </div>
         <div className="card-body">
           <p className="card-text">{title}</p>
           <p className="card-text">{`${price} руб.`}</p>

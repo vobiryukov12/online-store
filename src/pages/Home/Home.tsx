@@ -1,3 +1,4 @@
+import { Catalog } from "../../components/Catalog";
 import { Section } from "../../components/Section";
 import { TopSalesList } from "../../components/TopSalesList";
 
@@ -12,12 +13,8 @@ export function Home() {
       
       <Section>
         <h2 className="text-center">Каталог</h2>
-        <div className="preloader">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+        
+        <Catalog />
       </Section>
     </>
   );
