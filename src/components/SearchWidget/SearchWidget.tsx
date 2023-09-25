@@ -10,7 +10,7 @@ export function SearchWidget() {
     setIsVisible((prev) => !prev);
 
     if (value) {
-      navigate('/catalog', {state: {value}});
+      navigate(`/catalog?product=${value}`, {state: {value}});
       setValue('');
     }
   };

@@ -1,27 +1,26 @@
 import { useEffect, useState } from "react";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 export function Search() {
-  const location = useLocation();
-  const locationState = location.state ? location.state.value : '';
-  const [value, setValue] = useState(locationState);
   const [searchParams, setSearchParams] = useSearchParams();
-  
   const productQuery = searchParams.get('product') || '';
+  const [value, setValue] = useState(productQuery);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setValue(value);
+
+    !value && setSearchParams({});
   };
 
   useEffect(() => {
-    setValue(locationState);
-  }, [locationState]);
+    setValue(productQuery);
+  }, [productQuery]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    setSearchParams({product: value});
+    value ? setSearchParams({product: value}) : setSearchParams({});
   };
 
   return (
