@@ -6,7 +6,7 @@ import { About } from './pages/About';
 import { Contacts } from './pages/Contacts';
 import { NotFound } from './pages/NotFound';
 import { Cart } from './pages/Cart';
-import { Product } from './pages/Product';
+import { ProductPage } from './pages/ProductPage';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { Banner } from './components/Banner';
@@ -29,7 +29,7 @@ function App() {
               <Route path="/contacts" element={<Contacts />} />
               <Route path="/404" element={<NotFound />} />
               <Route path="/cart" element={<Cart />} />
-              <Route path="/catalog/:id" element={<Product />} />
+              <Route path="/catalog/:id" element={<ProductPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
 

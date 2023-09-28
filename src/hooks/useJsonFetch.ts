@@ -8,7 +8,12 @@ export default function useJsonFetch<T>(url: string, opts = {}) {
     const response = await fetch(url, opts);
     const responseData = await response.json();
     setNumberOfElements(responseData.length);
-    setData([...prevData, ...responseData]);
+
+    if (Array.isArray(responseData) && prevData.length > 0) {
+      setData([...prevData, ...responseData]);
+    } else {
+      setData(responseData);
+    }
   }
 
   useEffect(() => {

@@ -10,6 +10,27 @@ export interface IProduct {
   images: [string, string]
 }
 
+export interface IProductFull {
+  id: number,
+  category: number,
+  title: string,
+  images: [string, string],
+  sku: string,
+  manufacturer: string,
+  color: string,
+  material: string,
+  reason: string,
+  season: string,
+  heelSize: string,
+  price: number,
+  sizes: [
+    {
+      size: string,
+      available: boolean
+    }
+  ]
+}
+
 
 export interface IСategory {
   id: number,

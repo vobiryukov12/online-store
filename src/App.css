@@ -160,12 +160,17 @@
 .catalog-item-size {
   display: inline-block;
   padding: 0 10px;
+  border: 1px solid #727e86;
+  border-radius: 15px;
 }
 
 .catalog-item-size.selected {
   background: #727e86;
-  border-radius: 15px;
   color: #fff;
+}
+
+.catalog-item-size:hover {
+  cursor: pointer;
 }
 
 .catalog-search-form {
