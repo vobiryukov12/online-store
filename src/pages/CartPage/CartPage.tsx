@@ -1,16 +1,12 @@
+import { Cart } from "../../components/Cart";
 import { Section } from "../../components/Section";
 
-export function Cart() {
+export function CartPage() {
   return (
     <>
       <Section>
         <h2 className="text-center">Корзина</h2>
-        <div className="preloader">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+        <Cart />
       </Section>
 
       <Section>

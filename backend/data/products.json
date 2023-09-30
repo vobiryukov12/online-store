@@ -23,7 +23,11 @@
             },
             {
                 "size": "15 US",
-                "available": false
+                "available": true
+            },
+            {
+              "size": "20 US",
+              "available": true
             }
         ]
     },
@@ -1000,8 +1004,8 @@
         "category": 14,
         "title": "Блестящий ковбой",
         "images": [
-          "https://raw.githubusercontent.com/netology-code/ra16-diploma/master/html/img/products/flip-shiny_cowboy.jpg",
-          "https://raw.githubusercontent.com/netology-code/ra16-diploma/master/html/img/products/flip-shiny_cowboy_2.jpg"
+          "https://raw.githubusercontent.com/netology-code/ra16-diploma/master/html/img/products/shiny_cowboy.jpg",
+          "https://raw.githubusercontent.com/netology-code/ra16-diploma/master/html/img/products/shiny_cowboy_2.jpg"
         ],
         "sku": "1000037",
         "manufacturer": "JIMMY CHOO",

@@ -31,6 +31,14 @@ export interface IProductFull {
   ]
 }
 
+export interface IProductCart {
+  id: number, 
+  number: number, 
+  title: string, 
+  price: number, 
+  size: string, 
+  counter: number
+}
 
 export interface IСategory {
   id: number,

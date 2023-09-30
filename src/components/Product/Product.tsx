@@ -1,14 +1,17 @@
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useJsonFetch from "../../hooks/useJsonFetch";
-import { IProductFull } from "../../models/models";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { IProductCart, IProductFull } from "../../models/models";
+import { CtxData, StateContext } from "../../context/StateContext";
 
 export function Product() {
   const params = useParams();
   const productId = params.id;
   const [ data ] = useJsonFetch<IProductFull>(`${import.meta.env.VITE_ITEMS_URL}/${productId}`);
-  const [ selected, setSelected ] = useState('');
+  const [ selectedSize, setSelectedSize] = useState('');
   const [ counter, setCounter ] = useState(1);
+  const navigate = useNavigate();
+  const { dispatch } = useContext<CtxData>(StateContext);
 
   const someAvailableTrue = data && data.sizes.some(item=> item.available === true);
 
@@ -21,7 +24,51 @@ export function Product() {
   };
 
   const handleClick = (size: string) => {
-    setSelected(size);
+    setSelectedSize(size);
+  };
+
+  const handleButtonClick = () => {
+    let allItemsCart:IProductCart[] = [];
+    const { id, title, price } = data || {} as { id: number, title: string, price: number };
+    let containsObject = false;
+    const productId = +`${id}-${selectedSize}`.replace(/\D/g, '');
+
+    if (localStorage.getItem('products')) {
+      allItemsCart = JSON.parse(localStorage.getItem('products') || '');
+
+      allItemsCart.forEach((item) => {
+        if (item.id === productId && item.size === selectedSize) {
+          item.counter += counter;
+          item.price += price * counter;
+
+          containsObject = true;
+        
+          localStorage.setItem('products', JSON.stringify(allItemsCart));
+        }
+      });
+    }
+
+    if (!containsObject) {
+      dispatch({
+        type: 'add',
+        payload: 1
+      });
+
+      allItemsCart.push(
+        {
+          id: productId, 
+          number: allItemsCart.length + 1, 
+          title, 
+          price: price * counter, 
+          size: selectedSize, 
+          counter
+        }
+      );
+
+      localStorage.setItem('products', JSON.stringify(allItemsCart));
+    }
+
+    navigate('/cart');
   };
 
   return (
@@ -66,7 +113,7 @@ export function Product() {
                 ?
                 <p>
                   Размеры в наличии: {
-                    data.sizes.map(item => item.available && <span key={item.size} className={`catalog-item-size ${item.size === selected ? "selected" : ""}`} onClick={() => handleClick(item.size)}>{item.size}</span>)
+                    data.sizes.map(item => item.available && <span key={item.size} className={`catalog-item-size ${item.size === selectedSize ? "selected" : ""}`} onClick={() => handleClick(item.size)}>{item.size}</span>)
                   } 
                 </p>
                 :
@@ -85,7 +132,7 @@ export function Product() {
             </div>
 
             {
-              someAvailableTrue && (selected ? <Link to={'/cart'} className="btn btn-danger btn-block btn-lg">В корзину</Link> : <button className="btn btn-danger btn-block btn-lg" disabled={true}>В корзину</button>)
+              someAvailableTrue && (selectedSize ? <button onClick={handleButtonClick} className="btn btn-danger btn-block btn-lg">В корзину</button> : <button className="btn btn-danger btn-block btn-lg" disabled={true}>В корзину</button>)
             }
 
           </div>
