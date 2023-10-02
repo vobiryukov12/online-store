@@ -16,7 +16,8 @@ import { StateContext } from './context/StateContext';
 
 function App() {
   const [state, dispatch] = useReducer(reducer, {
-    count: JSON.parse(localStorage.getItem('products') || '').length
+    count: localStorage.getItem('products') && JSON.parse(localStorage.getItem('products') || '').length,
+    products: localStorage.getItem('products') && JSON.parse(localStorage.getItem('products') || '')
   });
 
   return (

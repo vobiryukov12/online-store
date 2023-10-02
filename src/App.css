@@ -145,7 +145,7 @@
 }
 
 .main-section {
-  min-height: 300px;
+  min-height: 200px;
 }
 
 .catalog-categories {
@@ -196,14 +196,6 @@
 /* Card */
 .col-4 {
   height: 660px;
-}
-
-.card-body {
-  height: 180px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
 }
 
 .card-img-wrap {

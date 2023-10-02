@@ -1,21 +1,27 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect } from "react";
 import { CartProduct } from "../CartProduct";
-import { IProductCart } from "../../models/models";
 import { CtxData, StateContext } from "../../context/StateContext";
 
 export function Cart() {
-  const [ products, setProducts ] = useState<IProductCart[]>(
-    localStorage.getItem('products') && JSON.parse(localStorage.getItem('products') || '')
-  );
+  const { state: { products }, dispatch } = useContext<CtxData>(StateContext);
 
-  const { dispatch } = useContext<CtxData>(StateContext);
+  useEffect(() => {
+    dispatch({
+      type: 'getProducts',
+      payload: localStorage.getItem('products') && JSON.parse(localStorage.getItem('products') || '')
+    });
+  }, []);
 
   const totalPrice = products && products.reduce((accum, item) => accum + item.price, 0);
 
   const handleRemove = (id: number) => {
     const items = products.filter(item => item.id !== id);
-    setProducts(items);
     localStorage.setItem('products', JSON.stringify(items));
+
+    dispatch({
+      type: 'removeProducts',
+      payload: items
+    });
 
     dispatch({
       type: 'remove',
@@ -39,7 +45,7 @@ export function Cart() {
 
       <tbody>
         {
-          products && products.map(item => <CartProduct 
+          products.map(item => <CartProduct 
             id={item.id} 
             number={item.number} 
             key={item.id} 

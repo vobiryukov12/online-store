@@ -44,3 +44,9 @@ export interface IСategory {
   id: number,
   title: string,
 }
+
+export interface IForm {
+  phone: string,
+  address: string,
+  agreement: boolean
+}
