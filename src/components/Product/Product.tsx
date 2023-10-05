@@ -3,11 +3,13 @@ import useJsonFetch from "../../hooks/useJsonFetch";
 import { useContext, useState } from "react";
 import { IProductCart, IProductFull } from "../../models/models";
 import { CtxData, StateContext } from "../../context/StateContext";
+import { ErrorMessage } from "../ErrorMessage";
+import { Loader } from "../Loader";
 
 export function Product() {
   const params = useParams();
   const productId = params.id;
-  const [ data ] = useJsonFetch<IProductFull>(`${import.meta.env.VITE_ITEMS_URL}/${productId}`);
+  const [ data, , , , loading, error ] = useJsonFetch<IProductFull>(`${import.meta.env.VITE_ITEMS_URL}/${productId}`);
   const [ selectedSize, setSelectedSize] = useState('');
   const [ counter, setCounter ] = useState(1);
   const navigate = useNavigate();
@@ -72,7 +74,9 @@ export function Product() {
   };
 
   return (
-    data && <section className="catalog-item">
+    data 
+    ? 
+    <section className="catalog-item">
       <h2 className="text-center">{data.title}</h2>
       <div className="row">
         <div className="col-5">
@@ -138,5 +142,10 @@ export function Product() {
           </div>
         </div>
       </section>
+      :
+      <div className="preloader-container preloader-container--catalog">
+        { error && <ErrorMessage error={error} /> }
+        { loading && <Loader /> }
+      </div>
   );
 }

@@ -1,11 +1,12 @@
 interface IButtonMoreProps {
-  handleClick: () => void
+  handleClick: () => void,
+  loading: boolean,
 }
 
-export function ButtonMore({ handleClick }: IButtonMoreProps) {
+export function ButtonMore({ handleClick, loading }: IButtonMoreProps) {
   return (
     <div className="text-center">
-      <button className="btn btn-outline-primary" onClick={handleClick}>Загрузить ещё</button>
+      <button className="btn btn-outline-primary" disabled={loading ? true : false} onClick={handleClick}>{loading ? 'Загрузка...' : 'Загрузить ещё'}</button>
     </div>
   );
 }

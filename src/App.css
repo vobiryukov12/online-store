@@ -326,3 +326,13 @@
   background-color: #727e86;
   border-color: #727e86;
 }
+
+.preloader-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.error {
+  color: red;
+}

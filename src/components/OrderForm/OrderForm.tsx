@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { IForm, IProductCart } from "../../models/models";
 import { CtxData, StateContext } from "../../context/StateContext";
+import { ErrorMessage } from "../ErrorMessage";
+import { Loader } from "../Loader";
 
 export function OrderForm() {
   const [ ordered, setOrdered ] = useState(false);
@@ -10,8 +12,9 @@ export function OrderForm() {
     address: '',
     agreement: false
   });
+  const [ loading, setLoading ] = useState(false);
+  const [ error, setError ] = useState('');
   const { phone, address, agreement } = form;
-
   const { state: { count }, dispatch } = useContext<CtxData>(StateContext);
 
   const items: IProductCart[] = localStorage.getItem('products') && JSON.parse(localStorage.getItem('products') || '');
@@ -31,42 +34,59 @@ export function OrderForm() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    setOrdered(true);
+    try {
+      setError('');
+      setLoading(true); 
 
-    await fetch(import.meta.env.VITE_ORDER_URL, {
-      method: 'POST', 
+      const response = await fetch(import.meta.env.VITE_ORDER_URL, {
+        method: 'POST', 
+    
+        body: JSON.stringify({
+          "owner": {
+            "phone": phone,
+            "address": address,
+          },
+          "items": basicItems
+        }),
+    
+        headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        }
+      });
+
+      if (!response.ok) {
+        setLoading(false);
+        setError('Ошибка! Попробуйте ещё раз');
+        return;
+      } else {
+        setOrdered(true);
+
+        setForm({
+          phone: '',
+          address: '',
+          agreement: false
+        });
   
-      body: JSON.stringify({
-        "owner": {
-          "phone": phone,
-          "address": address,
-        },
-        "items": basicItems
-      }),
+        localStorage.removeItem('products');
   
-      headers: {
-      'Content-type': 'application/json; charset=UTF-8',
+        dispatch({
+          type: 'remove',
+          payload: basicItems.length
+        });
+    
+        dispatch({
+          type: 'removeProducts',
+          payload: []
+        });
       }
-    });
 
-    setForm({
-      phone: '',
-      address: '',
-      agreement: false
-    });
-
-    localStorage.removeItem('products');
-
-    dispatch({
-      type: 'remove',
-      payload: basicItems.length
-    });
-
-    dispatch({
-      type: 'removeProducts',
-      payload: []
-    });
-  };
+      setLoading(false);
+    } catch (e) {
+      setLoading(false);
+      const error = new Error('Ошибка! Попробуйте ещё раз');
+      setError(error.message);
+    }
+  };   
 
   useEffect(() => {
     if (ordered) {
@@ -76,7 +96,7 @@ export function OrderForm() {
       
       return () => clearTimeout(timer);
     }
-  }, [ordered]);   
+  }, [ordered]);  
 
   return (
     <>
@@ -85,6 +105,12 @@ export function OrderForm() {
           Заказ офрмлен
         </div>
       }
+      
+      <div className="preloader-container">
+        { error && <ErrorMessage error={error} /> }
+        { loading && <Loader /> }
+      </div>
+
       { count > 0 && <div className="card" style={{ maxWidth: '30rem', margin: '0 auto' }}>
         <form className="card-body" onSubmit={handleSubmit}>
           <div className="form-group">
