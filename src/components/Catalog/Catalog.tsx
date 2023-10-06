@@ -11,31 +11,39 @@ import { Loader } from "../Loader";
 export function Catalog() {
   const [ searchParams ] = useSearchParams();
   const productQuery = searchParams.get('product') || '';
-  const query = productQuery ? `&q=${productQuery}` : '';
 
   const [ categoryId, setCategoryId ] = useState(0);
-  const [ data, fetchData, numberOfElements, setData, loading, error ] = useJsonFetch<IProduct[]>(productQuery ? `${import.meta.env.VITE_ITEMS_URL}?q=${productQuery}` : import.meta.env.VITE_ITEMS_URL);
+
+  const productQueryParams = new URLSearchParams({q: productQuery}).toString();
+
+  const [ data, fetchData, numberOfElements, setData, loading, error ] = useJsonFetch<IProduct[]>(productQuery ? `${import.meta.env.VITE_ITEMS_URL}?${productQueryParams}` : import.meta.env.VITE_ITEMS_URL);
   const [ offset, setOffset ] = useState(6);
 
   useEffect(() => {
     setCategoryId(0);
     setData([]);
-  }, [query]);
+  }, [productQuery]);
   
   const handleSelect = (id: number) => {
     setCategoryId(id);
     setOffset(0);
 
+    const query = new URLSearchParams({categoryId: String(id), q: productQuery}).toString();
+
     if (id !== categoryId) {
       setData([]);
-      fetchData(`${import.meta.env.VITE_ITEMS_URL}?categoryId=${id}${query}`);
+      fetchData(`${import.meta.env.VITE_ITEMS_URL}?${query}`);
     }
   };
 
   const loadMore = (offset: number) => {
     setOffset(offset);
 
-    fetchData(`${import.meta.env.VITE_ITEMS_URL}?categoryId=${categoryId}&offset=${offset}${query}`);
+    const query = new URLSearchParams({categoryId: String(categoryId), offset: String(offset)});
+    query.append('q', productQuery);
+    query.toString();
+    
+    fetchData(`${import.meta.env.VITE_ITEMS_URL}?${query}`);
   };
 
   return (
