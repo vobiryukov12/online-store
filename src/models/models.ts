@@ -40,7 +40,7 @@ export interface IProductCart {
   counter: number
 }
 
-export interface IСategory {
+export interface ICategory {
   id: number,
   title: string,
 }
