@@ -28,7 +28,9 @@ export function Catalog() {
     setCategoryId(id);
     setOffset(0);
 
-    const query = new URLSearchParams({categoryId: String(id), q: productQuery}).toString();
+    const query = new URLSearchParams({categoryId: String(id)});
+    productQuery && query.append('q', productQuery);
+    query.toString();
 
     if (id !== categoryId) {
       setData([]);
@@ -40,7 +42,7 @@ export function Catalog() {
     setOffset(offset);
 
     const query = new URLSearchParams({categoryId: String(categoryId), offset: String(offset)});
-    query.append('q', productQuery);
+    productQuery && query.append('q', productQuery);
     query.toString();
     
     fetchData(`${import.meta.env.VITE_ITEMS_URL}?${query}`);
