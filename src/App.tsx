@@ -22,30 +22,32 @@ function App() {
 
   return (
     <StateContext.Provider value={{ state, dispatch }}>
-      <Header />
+      <div className="app">
+        <Header />
 
-      <main className="container">
-        <div className="row">
-          <div className="col">
+        <main className="main container">
+          <div className="row">
+            <div className="col">
 
-            <Banner />
+              <Banner />
 
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/catalog" element={<CatalogPage />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contacts" element={<Contacts />} />
-              <Route path="/404" element={<NotFound />} />
-              <Route path="/cart" element={<CartPage />} />
-              <Route path="/catalog/:id" element={<ProductPage />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/catalog" element={<CatalogPage />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contacts" element={<Contacts />} />
+                <Route path="/404" element={<NotFound />} />
+                <Route path="/cart" element={<CartPage />} />
+                <Route path="/catalog/:id" element={<ProductPage />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
 
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
 
-      <Footer />
+        <Footer />
+      </div>
     </StateContext.Provider>
   );
 }

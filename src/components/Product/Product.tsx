@@ -78,11 +78,11 @@ export function Product() {
     ? 
     <section className="catalog-item">
       <h2 className="text-center">{data.title}</h2>
-      <div className="row">
-        <div className="col-5">
+      <div className="row product-wrap">
+        <div className="col-5 product-img">
           <img src={data.images[0]} className="img-fluid" alt={data.title} />
         </div>
-        <div className="col-7">
+        <div className="col-7 product-information">
           <table className="table table-bordered">
             <tbody>
               <tr>
@@ -115,23 +115,23 @@ export function Product() {
               {
                 someAvailableTrue 
                 ?
-                <p>
-                  Размеры в наличии: {
+                <div className="product-sizes">
+                  <span>Размеры в наличии:</span> {
                     data.sizes.map(item => item.available && <span key={item.size} className={`catalog-item-size ${item.size === selectedSize ? "selected" : ""}`} onClick={() => handleClick(item.size)}>{item.size}</span>)
                   } 
-                </p>
+                </div>
                 :
                 'К сожалению, нет доступных размеров, попробуйте посмотреть позднее'
               }
               {
                 someAvailableTrue && 
-                <p>Количество: 
+                <div className="product-count">Количество: 
                   <span className="btn-group btn-group-sm pl-2">
                     <button className="btn btn-secondary" onClick={decrease}>-</button>
                     <span className="btn btn-outline-primary">{counter}</span>
                     <button className="btn btn-secondary" onClick={increase}>+</button>
                   </span>
-                </p>
+                </div>
               }
             </div>
 
@@ -143,7 +143,7 @@ export function Product() {
         </div>
       </section>
       :
-      <div className="preloader-container preloader-container--catalog">
+      <div className="preloader-container">
         { error && <ErrorMessage error={error} /> }
         { loading && <Loader /> }
       </div>

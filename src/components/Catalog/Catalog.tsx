@@ -6,7 +6,7 @@ import { Categories } from "../Categories";
 import { ButtonMore } from "../ButtonMore";
 import { useSearchParams } from "react-router-dom";
 import { ErrorMessage } from "../ErrorMessage";
-import { Loader } from "../Loader";
+import { TemplateCards } from "../TemplateCards";
 
 export function Catalog() {
   const [ searchParams ] = useSearchParams();
@@ -56,17 +56,19 @@ export function Catalog() {
         data && data.length > 0
         ?
         <>
-          <div className="row">
+          <div className="row card-wrap">
             { data.map(item => (<Card key={item.id} id={item.id} title={item.title} price={item.price} image={item.images[0]} />)) }
           </div>
           { (data && numberOfElements >= 6) && (<ButtonMore loading={loading} handleClick={() => error ? loadMore(offset) : loadMore(offset + 6)} />) }
         </>
         :
+        <>
         <div className="preloader-container">
           { error && <ErrorMessage error={error} /> }
-          { loading && <Loader /> }
           { (productQuery && !loading && !error) && <p>Товаров, соответствующих вашему запросу, не обнаружено</p> }
         </div>
+          { loading && <TemplateCards /> }
+        </>
       }
     </>
   );

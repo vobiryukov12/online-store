@@ -9,8 +9,8 @@ interface ICardProps {
 
 export function Card({ id, title, price, image }: ICardProps) {
   return (
-    <div className="col-4">
-      <div className="card">
+    <div className="col-4 card-inner">
+      <div className="card card-item">
         <div className="card-img-wrap">
           <img src={image} className="card-img-top" alt={title} />
         </div>

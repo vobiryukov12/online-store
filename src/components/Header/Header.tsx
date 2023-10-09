@@ -13,12 +13,12 @@ export function Header() {
 
             <div className="collapse navbar-collapse" id="navbarMain">
               <Menu />
+            </div>
 
-              <div className="header-controls-pics">
-                <SearchWidget />
-                
-                <CartWidget />
-              </div>
+            <div className="header-controls-pics">
+              <SearchWidget />
+              
+              <CartWidget />
             </div>
           </nav>
         </div>

@@ -30,39 +30,43 @@ export function Cart() {
   };
 
   return (
-    products && products.length > 0 ? <table className="table table-bordered">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Название</th>
-          <th scope="col">Размер</th>
-          <th scope="col">Кол-во</th>
-          <th scope="col">Стоимость</th>
-          <th scope="col">Итого</th>
-          <th scope="col">Действия</th>
-        </tr>
-      </thead>
+    products && products.length > 0 
+    ?
+    <div className="table-responsive">
+      <table className="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Название</th>
+            <th scope="col">Размер</th>
+            <th scope="col">Кол-во</th>
+            <th scope="col">Стоимость</th>
+            <th scope="col">Итого</th>
+            <th scope="col">Действия</th>
+          </tr>
+        </thead>
 
-      <tbody>
-        {
-          products.map(item => <CartProduct 
-            id={item.id} 
-            number={item.number} 
-            key={item.id} 
-            title={item.title} 
-            price={item.price} 
-            size={item.size} 
-            counter={item.counter}
-            handleRemove={handleRemove}
-          />)
-        }
+        <tbody>
+          {
+            products.map(item => <CartProduct 
+              id={item.id} 
+              number={item.number} 
+              key={item.id} 
+              title={item.title} 
+              price={item.price} 
+              size={item.size} 
+              counter={item.counter}
+              handleRemove={handleRemove}
+            />)
+          }
 
-        <tr>
-          <td colSpan={5} className="text-right">Общая стоимость</td>
-          <td>{`${totalPrice} руб.`}</td>
-        </tr>
-      </tbody>
-    </table>
-    : 'Здесь пусто'
+          <tr>
+            <td colSpan={5} className="text-right">Общая стоимость</td>
+            <td>{`${totalPrice} руб.`}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    : <p>Ваша корзина пуста. Выберите нужный Вам товар из каталога интернет-магазина и добавьте его в корзину.</p>
   );
 }
