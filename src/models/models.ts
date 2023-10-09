@@ -35,7 +35,8 @@ export interface IProductCart {
   id: number, 
   number: number, 
   title: string, 
-  price: number, 
+  price: number,
+  pricePerItem: number 
   size: string, 
   counter: number
 }

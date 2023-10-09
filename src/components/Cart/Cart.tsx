@@ -53,7 +53,8 @@ export function Cart() {
               number={item.number} 
               key={item.id} 
               title={item.title} 
-              price={item.price} 
+              price={item.price}
+              pricePerItem={item.pricePerItem} 
               size={item.size} 
               counter={item.counter}
               handleRemove={handleRemove}

@@ -61,7 +61,8 @@ export function Product() {
           id: productId, 
           number: allItemsCart.length + 1, 
           title, 
-          price: price * counter, 
+          price: price * counter,
+          pricePerItem: price,
           size: selectedSize, 
           counter
         }
