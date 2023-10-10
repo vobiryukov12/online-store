@@ -10,7 +10,7 @@ https://vobiryukov12.github.io/online-store/
 ## Описание
 Интернет-магазин с поиском, корзиной, оформлением заказа и постраничной навигацией.
 
-##### Технологии используемые на проекте: <br>
+##### Технологии используемые на проекте:
 
 [![Skills](https://skillicons.dev/icons?i=react,ts,css,bootstrap)](https://skillicons.dev)
 
