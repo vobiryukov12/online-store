@@ -32,7 +32,7 @@ export default function useJsonFetch<T>(url: string, opts = {}) {
     
       setLoading(false);
     } catch (e) {
-        if (e.name !== 'AbortError') {
+        if ((e as Error).name !== 'AbortError') {
           setLoading(false);
           const error = new Error('Ошибка!');
           setError(error.message);
